@@ -1,18 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-Console.WriteLine("Hello, World!");
+CreateGif("carport-*", 2688 / 2, 1512 / 2, "result-24.gif", 20);
+CreateGif("carport-*-1200*", 2688 / 2, 1512 / 2, "result-noon.gif", 100);
 
-
-// The final dimensions of the gif
-
-// Create a blank canvas for the gif
-NewMethod("carport-*", 2688 / 2, 1512 / 2, "result-24.gif", 20);
-NewMethod("carport-*-1200*", 2688 / 2, 1512 / 2, "result-noon.gif", 100);
-
-static void NewMethod(string searchPattern, int width, int height, string outputFilePath, int frameDelay)
+static void CreateGif(string searchPattern, int width, int height, string outputFilePath, int frameDelay)
 {
     var images = System.IO.Directory.GetFiles("timelapses", searchPattern).ToList();
     Console.WriteLine(images.Count + " image(s) found that match" + searchPattern);
@@ -38,7 +31,6 @@ static void NewMethod(string searchPattern, int width, int height, string output
         }
 
         Console.WriteLine("Creating gif");
-        // Save an encode the gif
         using (var fileStream = new FileStream(outputFilePath, FileMode.Create))
         {
             gif.SaveAsGif(fileStream);
